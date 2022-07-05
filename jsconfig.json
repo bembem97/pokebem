@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@api/*": ["pages/api/*"],
+      "@poke/*": ["components/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
