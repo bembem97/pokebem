@@ -7,6 +7,7 @@ import Card from "@mui/material/Card"
 import CardMedia from "@mui/material/CardMedia"
 import CardContent from "@mui/material/CardContent"
 import Box from "@mui/material/Box"
+import Divider from "@mui/material/Divider"
 
 import Wrapper from "@poke/Wrapper"
 
@@ -51,12 +52,9 @@ function Pokemon({ pokemon }) {
 
                     {/* //* Pokemon Info */}
                     <CardContent>
-                        <Typography variant="subtitle2">
-                            {pokemon.id}
-                        </Typography>
-
                         <Typography
                             component="h1"
+                            variant="h3"
                             sx={{ textTransform: "capitalize" }}
                         >
                             {pokemon.name}
@@ -69,9 +67,45 @@ function Pokemon({ pokemon }) {
                                 key={type.name}
                                 sx={{
                                     textTransform: "capitalize",
+                                    fontWeight: "bold",
+                                    marginRight: "4px",
                                 }}
                             />
                         ))}
+
+                        <Box
+                            display="grid"
+                            gridTemplateColumns="repeat(3, 1fr)"
+                            justifyItems="center"
+                            width="min(100%, 120px)"
+                            my={1}
+                        >
+                            <Typography>
+                                {pokemon.weight}
+                                <Typography
+                                    component="span"
+                                    sx={{ fontSize: 12 }}
+                                >
+                                    kg
+                                </Typography>
+                            </Typography>
+
+                            <Divider
+                                orientation="vertical"
+                                sx={{ width: "3px" }}
+                            />
+
+                            <Typography>
+                                {pokemon.height}
+
+                                <Typography
+                                    component="span"
+                                    sx={{ fontSize: 12 }}
+                                >
+                                    m
+                                </Typography>
+                            </Typography>
+                        </Box>
                     </CardContent>
                 </Card>
             </Box>

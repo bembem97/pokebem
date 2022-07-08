@@ -36,7 +36,9 @@ const SearchPokemon = () => {
 
         startTransition(() => {
             const filtered = data.results
-                .filter((item) => item.name.toLowerCase().includes(searchItem))
+                .filter((item) =>
+                    item.name.toLowerCase().includes(searchItem.toLowerCase())
+                )
                 .slice(0, 10)
 
             searchItem && searchItem.length > 0
@@ -47,42 +49,35 @@ const SearchPokemon = () => {
 
     return (
         <>
-            {/* <SearchBar> */}
-            {/* {isPending ? (
-                    <CircularProgress size={16} />
-                ) : (
-                    <SearchIcon fontSize={"small"} />
-                )} */}
-            <Search>
-                <SearchIconWrapper>
-                    <SearchIcon />
-                </SearchIconWrapper>
+            <ClickAwayListener onClickAway={() => setIsOpen(false)}>
+                <Search onClick={() => setIsOpen(true)}>
+                    <SearchIconWrapper>
+                        <SearchIcon />
+                    </SearchIconWrapper>
 
-                <StyledInputBase
-                    placeholder="Search…"
-                    inputProps={{ "aria-label": "search" }}
-                    inputRef={dropdownRef}
-                    onChange={handleSearch}
-                    onClick={() => setIsOpen(true)}
-                    onBlur={() => {
-                        const timer = setTimeout(() => setIsOpen(false), 50)
-                        clearTimeout(timer)
-                    }}
-                />
+                    <StyledInputBase
+                        placeholder="Search…"
+                        inputProps={{ "aria-label": "search" }}
+                        inputRef={dropdownRef}
+                        onChange={handleSearch}
+                    />
 
-                <Popper
-                    disablePortal
-                    anchorEl={dropdownRef.current}
-                    open={isOpen}
-                    placement="bottom-start"
-                    sx={{
-                        position: "relative",
-                        zIndex: (theme) => theme.zIndex.modal,
-                    }}
-                >
-                    <Paper>
-                        <ClickAwayListener onClickAway={() => setIsOpen(false)}>
-                            <MenuList sx={{ paddingY: 0 }}>
+                    <Popper
+                        disablePortal
+                        anchorEl={dropdownRef.current}
+                        open={isOpen}
+                        placement="bottom-start"
+                        sx={{
+                            position: "relative",
+                            zIndex: (theme) => theme.zIndex.modal,
+                            width: 1,
+                        }}
+                    >
+                        <Paper>
+                            <MenuList
+                                sx={{ paddingY: 0 }}
+                                // autoFocusItem={isOpen}
+                            >
                                 {pokemonList.map((item) => (
                                     <MenuItem
                                         key={item.name}
@@ -110,65 +105,10 @@ const SearchPokemon = () => {
                                     </MenuItem>
                                 ))}
                             </MenuList>
-                        </ClickAwayListener>
-                    </Paper>
-                </Popper>
-            </Search>
-            {/* <InputBase
-                    placeholder="Search..."
-                    inputRef={dropdownRef}
-                    onChange={handleSearch}
-                    onClick={() => setIsOpen(true)}
-                    onBlur={() => {
-                        const timer = setTimeout(() => setIsOpen(false), 50)
-                        clearTimeout(timer)
-                    }}
-                />
-
-                <Popper
-                    disablePortal
-                    anchorEl={dropdownRef.current}
-                    open={isOpen}
-                    placement="bottom-start"
-                    sx={{
-                        position: "relative",
-                        zIndex: (theme) => theme.zIndex.modal,
-                    }}
-                >
-                    <Paper>
-                        <ClickAwayListener onClickAway={() => setIsOpen(false)}>
-                            <MenuList sx={{ paddingY: 0 }}>
-                                {pokemonList.map((item) => (
-                                    <MenuItem
-                                        key={item.name}
-                                        sx={{ paddingY: 0 }}
-                                    >
-                                        <Link
-                                            passHref
-                                            href={{
-                                                pathname: "/pokemon/[name]",
-                                                query: { name: item.name },
-                                            }}
-                                        >
-                                            <MuiLink
-                                                underline="none"
-                                                color="black"
-                                                variant="body2"
-                                                sx={{
-                                                    width: 1,
-                                                    paddingY: 1,
-                                                }}
-                                            >
-                                                {item.name}
-                                            </MuiLink>
-                                        </Link>
-                                    </MenuItem>
-                                ))}
-                            </MenuList>
-                        </ClickAwayListener>
-                    </Paper>
-                </Popper> */}
-            {/* </SearchBar> */}
+                        </Paper>
+                    </Popper>
+                </Search>
+            </ClickAwayListener>
         </>
     )
 }

@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography"
 import Divider from "@mui/material/Divider"
 import IconButton from "@mui/material/IconButton"
 import Toolbar from "@mui/material/Toolbar"
+import SwipeableDrawer from "@mui/material/SwipeableDrawer"
 
 import { alpha } from "@mui/material/styles"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
@@ -24,7 +25,7 @@ const DrawerToolbar = styled(Toolbar)(({ theme }) => ({
     borderBottom: "1px solid rgba(0, 0, 0, .12)",
 }))
 
-const TypeDrawer = ({ window, drawerWidth }) => {
+const TypeDrawer = ({ window, drawerWidth, drawerStyles }) => {
     const [isDrawerOpen, setIsDrawerOpen] = useContext(DrawerContext)
 
     const handleDrawerToggle = () => setIsDrawerOpen(!isDrawerOpen)
@@ -38,7 +39,19 @@ const TypeDrawer = ({ window, drawerWidth }) => {
                 </Typography>
             </DrawerToolbar>
 
-            <List>
+            <List sx={{ py: 0 }}>
+                <ListItem
+                    sx={{ display: { xs: "block", md: "none" } }}
+                    disablePadding
+                    disableGutters
+                >
+                    <Link passHref href="/">
+                        <ListItemButton>
+                            <ListItemText primary="Home" />
+                        </ListItemButton>
+                    </Link>
+                </ListItem>
+
                 {types.map((type) => (
                     <ListItem key={type} disablePadding disableGutters>
                         <Link
@@ -82,21 +95,18 @@ const TypeDrawer = ({ window, drawerWidth }) => {
         window !== undefined ? () => window().document.body : undefined
 
     return (
-        <Box>
+        <Box component="aside" sx={{ ...drawerStyles }}>
             {/* //* Small Screen */}
-            <Drawer
-                container={container}
-                variant="temporary"
+            <SwipeableDrawer
+                anchor="left"
                 open={isDrawerOpen}
-                onClose={handleDrawerToggle}
-                ModalProps={{
-                    keepMounted: true, // Better open performance on mobile.
-                }}
+                onClose={() => setIsDrawerOpen(false)}
+                onOpen={() => setIsDrawerOpen(true)}
                 sx={{
-                    display: { xs: "block", sm: "none" },
+                    display: { xs: "block", md: "none" },
                     "& .MuiDrawer-paper": {
                         boxSizing: "border-box",
-                        width: { xs: "min(100%, 320px)", sm: drawerWidth },
+                        width: { xs: "min(100%, 320px)", md: drawerWidth },
                     },
                 }}
             >
@@ -111,20 +121,20 @@ const TypeDrawer = ({ window, drawerWidth }) => {
                 </IconButton>
 
                 {drawer}
-            </Drawer>
+            </SwipeableDrawer>
 
             {/* //* Big Screen */}
             <Drawer
                 variant="permanent"
                 sx={{
-                    position: "static",
-                    display: { xs: "none", sm: "block" },
+                    display: { xs: "none", md: "block" },
                     "& .MuiDrawer-paper": {
                         boxSizing: "border-box",
-                        width: { xs: 0, sm: drawerWidth },
+                        width: { xs: 0, md: drawerWidth },
                     },
                 }}
                 open
+                PaperProps={{ sx: { position: "static" } }}
             >
                 {drawer}
             </Drawer>

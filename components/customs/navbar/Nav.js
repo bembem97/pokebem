@@ -1,36 +1,38 @@
 import React, { useState, useContext } from "react"
 import Link from "next/link"
 
-// import { ToolbarStyled as Toolbar, AppBarStyled as AppBar } from "./StyledNav"
 import SearchPokemon from "./SearchBar"
 
 import AppBar from "@mui/material/AppBar"
 import Toolbar from "@mui/material/Toolbar"
-
-import MenuIcon from "@mui/icons-material/Menu"
 import IconButton from "@mui/material/IconButton"
-import Box from "@mui/material/Box"
 import MuiLink from "@mui/material/Link"
 import Typography from "@mui/material/Typography"
 
+import HomeIcon from "@mui/icons-material/Home"
+import MenuIcon from "@mui/icons-material/Menu"
+import useMediaQuery from "@mui/material/useMediaQuery"
+import { useTheme } from "@mui/material/styles"
+
 import { DrawerContext } from "lib/Context"
 
-const Nav = () => {
+const Nav = ({ appBarStyles }) => {
     const [isDrawerOpen, setIsDrawerOpen] = useContext(DrawerContext)
+    const theme = useTheme()
+    const mq = useMediaQuery(theme.breakpoints.up("sm"))
 
     return (
         <>
-            {/* <Box sx={{ flexGrow: 1 }}> */}
             <AppBar
                 position="sticky"
-                sx={{ boxShadow: (theme) => theme.shadows[0] }}
+                sx={{ boxShadow: (theme) => theme.shadows[0], ...appBarStyles }}
             >
                 <Toolbar>
                     <IconButton
                         size="large"
                         edge="start"
                         aria-label="open drawer"
-                        sx={{ mr: 2, display: { xs: "block", sm: "none" } }}
+                        sx={{ mr: 2, display: { xs: "block", md: "none" } }}
                         onClick={() => setIsDrawerOpen(!isDrawerOpen)}
                     >
                         <MenuIcon />
@@ -42,12 +44,12 @@ const Nav = () => {
                         component="div"
                         sx={{
                             flexGrow: 1,
-                            display: { xs: "none", sm: "block" },
+                            // display: { xs: "none", sm: "block" },
                         }}
                     >
                         <Link passHref href={"/"}>
                             <MuiLink underline="none" color="black">
-                                Pokemon
+                                {mq ? "Pokemon" : <HomeIcon fontSize="large" />}
                             </MuiLink>
                         </Link>
                     </Typography>
@@ -55,7 +57,6 @@ const Nav = () => {
                     <SearchPokemon />
                 </Toolbar>
             </AppBar>
-            {/* </Box> */}
         </>
     )
 }

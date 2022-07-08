@@ -6,6 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline"
 import { CacheProvider } from "@emotion/react"
 import theme from "src/theme"
 import createEmotionCache from "src/createEmotionCache"
+import GlobalStyles from "@mui/material/GlobalStyles"
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -27,6 +28,14 @@ export default function MyApp(props) {
                 />
             </Head>
             <ThemeProvider theme={theme}>
+                <GlobalStyles
+                    styles={{
+                        "html, body, #__next ": {
+                            height: "100%",
+                            minHeight: "100vh",
+                        },
+                    }}
+                />
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline />
                 <Component {...pageProps} />
