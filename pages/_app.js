@@ -5,6 +5,7 @@ import { ThemeProvider } from "@mui/material/styles"
 import CssBaseline from "@mui/material/CssBaseline"
 // import { CacheProvider } from "@emotion/react"
 import theme from "src/theme"
+import { grey } from "@mui/material/colors"
 // import createEmotionCache from "src/createEmotionCache"
 import GlobalStyles from "@mui/material/GlobalStyles"
 
@@ -33,6 +34,9 @@ export default function MyApp(props) {
                         "html, body, #__next ": {
                             height: "100%",
                             minHeight: "100vh",
+                        },
+                        body: {
+                            backgroundColor: grey["100"],
                         },
                     }}
                 />

@@ -43,7 +43,7 @@ const Wrapper = ({ children, title, ...props }) => {
                             drawerStyles={{
                                 height: { xs: "initial", md: "100vh" },
                                 gridColumn: "1",
-                                overflow: "auto",
+                                overflowY: "scroll",
                                 position: "sticky",
                                 top: 0,
                             }}

@@ -130,7 +130,7 @@ const TypeDrawer = ({ window, drawerWidth, drawerStyles }) => {
                     display: { xs: "none", md: "block" },
                     "& .MuiDrawer-paper": {
                         boxSizing: "border-box",
-                        width: { xs: 0, md: drawerWidth },
+                        width: { xs: 0, md: `min(100%, ${drawerWidth}px)` },
                     },
                 }}
                 open

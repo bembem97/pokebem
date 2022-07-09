@@ -51,7 +51,13 @@ function Pokemon({ pokemon }) {
                     </CardMedia>
 
                     {/* //* Pokemon Info */}
-                    <CardContent>
+                    <CardContent
+                        sx={{
+                            gap: 5,
+                            display: "flex",
+                            flexDirection: "column",
+                        }}
+                    >
                         <Typography
                             component="h1"
                             variant="h3"
@@ -60,18 +66,21 @@ function Pokemon({ pokemon }) {
                             {pokemon.name}
                         </Typography>
 
-                        {pokemon.types.map(({ type }) => (
-                            <Chip
-                                color={type.name}
-                                label={type.name}
-                                key={type.name}
-                                sx={{
-                                    textTransform: "capitalize",
-                                    fontWeight: "bold",
-                                    marginRight: "4px",
-                                }}
-                            />
-                        ))}
+                        <Box>
+                            {pokemon.types.map(({ type }) => (
+                                <Chip
+                                    color={type.name}
+                                    label={type.name}
+                                    key={type.name}
+                                    sx={{
+                                        textTransform: "capitalize",
+                                        marginRight: "4px",
+                                        fontWeight: "500",
+                                        fontSize: 16,
+                                    }}
+                                />
+                            ))}
+                        </Box>
 
                         <Box
                             display="grid"
@@ -79,9 +88,18 @@ function Pokemon({ pokemon }) {
                             justifyItems="center"
                             width="min(100%, 120px)"
                             my={1}
+                            gap={1}
                         >
-                            <Typography>
+                            <Typography sx={{ width: "max-content" }}>
+                                <Typography
+                                    component="span"
+                                    sx={{ fontSize: 13, fontWeight: 500 }}
+                                >
+                                    Weight:{" "}
+                                </Typography>
+
                                 {pokemon.weight}
+
                                 <Typography
                                     component="span"
                                     sx={{ fontSize: 12 }}
@@ -95,7 +113,14 @@ function Pokemon({ pokemon }) {
                                 sx={{ width: "3px" }}
                             />
 
-                            <Typography>
+                            <Typography sx={{ width: "max-content" }}>
+                                <Typography
+                                    component="span"
+                                    sx={{ fontSize: 13, fontWeight: 500 }}
+                                >
+                                    Height:{" "}
+                                </Typography>
+
                                 {pokemon.height}
 
                                 <Typography
